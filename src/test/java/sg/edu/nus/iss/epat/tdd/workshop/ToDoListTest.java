@@ -27,23 +27,23 @@ public class ToDoListTest  {
 
     @Test
     public void testAddTask() {
-        sg.edu.nus.iss.epat.tdd.workshop.ToDoList list = new sg.edu.nus.iss.epat.tdd.workshop.ToDoList();
-        sg.edu.nus.iss.epat.tdd.workshop.Task t = new sg.edu.nus.iss.epat.tdd.workshop.Task("Buy milk");
+        ToDoList list = new ToDoList();
+        Task t = new Task("Buy milk");
         list.addTask(t);
 
         org.junit.Assert.assertNotNull("Task should be retrievable after add", list.getTask("Buy milk"));
         org.junit.Assert.assertEquals("Description should match", "Buy milk", list.getTask("Buy milk").getDescription());
 
         int count = 0;
-        for (sg.edu.nus.iss.epat.tdd.workshop.Task task : list.getAllTasks()) count++;
+        for (Task task : list.getAllTasks()) count++;
         org.junit.Assert.assertEquals("There should be exactly 1 task in the list", 1, count);
     }
 
     @Test
     public void testGetStatus() {
-        sg.edu.nus.iss.epat.tdd.workshop.ToDoList list = new sg.edu.nus.iss.epat.tdd.workshop.ToDoList();
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("A")); // default not complete
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("B", true)); // constructed as complete
+        ToDoList list = new ToDoList();
+        list.addTask(new Task("A")); // default not complete
+        list.addTask(new Task("B", true)); // constructed as complete
 
         org.junit.Assert.assertFalse("A should be not completed", list.getStatus("A"));
         org.junit.Assert.assertTrue("B should be completed", list.getStatus("B"));
@@ -52,38 +52,38 @@ public class ToDoListTest  {
 
     @Test
     public void testRemoveTask() {
-        sg.edu.nus.iss.epat.tdd.workshop.ToDoList list = new sg.edu.nus.iss.epat.tdd.workshop.ToDoList();
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("Rm"));
+        ToDoList list = new ToDoList();
+        list.addTask(new Task("Rm"));
         int before = 0;
-        for (sg.edu.nus.iss.epat.tdd.workshop.Task task : list.getAllTasks()) before++;
+        for (Task task : list.getAllTasks()) before++;
 
-        sg.edu.nus.iss.epat.tdd.workshop.Task removed = list.removeTask("Rm");
+        Task removed = list.removeTask("Rm");
         org.junit.Assert.assertNotNull("removeTask should return the removed Task", removed);
         org.junit.Assert.assertEquals("Removed task description should match", "Rm", removed.getDescription());
 
         org.junit.Assert.assertNull("getTask should return null after removal", list.getTask("Rm"));
         int after = 0;
-        for (sg.edu.nus.iss.epat.tdd.workshop.Task task : list.getAllTasks()) after++;
+        for (Task task : list.getAllTasks()) after++;
         org.junit.Assert.assertEquals("Number of tasks should decrease by 1 after removal", before - 1, after);
     }
 
     @Test
     public void testGetCompletedTasks() {
-        sg.edu.nus.iss.epat.tdd.workshop.ToDoList list = new sg.edu.nus.iss.epat.tdd.workshop.ToDoList();
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("a", true));
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("b", true));
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("c", false));
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("d", false));
+        ToDoList list = new ToDoList();
+        list.addTask(new Task("a", true));
+        list.addTask(new Task("b", true));
+        list.addTask(new Task("c", false));
+        list.addTask(new Task("d", false));
         // Also mark one via completeTask
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("e"));
+        list.addTask(new Task("e"));
         list.completeTask("e");
 
-        java.util.Collection<sg.edu.nus.iss.epat.tdd.workshop.Task> completed = list.getCompletedTasks();
+        java.util.Collection<Task> completed = list.getCompletedTasks();
         org.junit.Assert.assertNotNull("getCompletedTasks should not be null", completed);
 
         int compCount = 0;
         java.util.Set<String> compDescs = new java.util.HashSet<>();
-        for (sg.edu.nus.iss.epat.tdd.workshop.Task task : completed) {
+        for (Task task : completed) {
             compCount++;
             compDescs.add(task.getDescription());
             org.junit.Assert.assertTrue("Each returned task should be marked complete", task.isComplete());

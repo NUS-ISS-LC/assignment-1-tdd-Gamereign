@@ -6,26 +6,28 @@ public class ToDoList {
    private HashMap<String, Task> tasks = new HashMap<String, Task>();
 
    public void addTask(Task task) {
-      // Add code here
+      if (task == null) return;
+      tasks.put(task.getDescription(), task);
    }
 
    public void completeTask(String description) {
-      // Add code here
+      Task task = tasks.get(description);
+      if (task != null) {
+         task.setComplete(true);
+      }
    }
 
    public boolean getStatus(String description) {
-      // Add code here
-      return false;
+      Task task = tasks.get(description);
+      return task != null && task.isComplete();
    }
 
    public Task getTask(String description) {
-      // Add code here
-      return null;
+      return tasks.get(description);
    }
 
    public Task removeTask(String description) {
-      // Add code here
-      return null;
+      return tasks.remove(description);
    }
 
    public Collection<Task> getAllTasks() {
@@ -33,7 +35,13 @@ public class ToDoList {
    }
 
    public Collection<Task> getCompletedTasks() {
-      // Add code here
-      return null;
+      java.util.ArrayList<Task> completed = new java.util.ArrayList<>();
+      for (Task task : tasks.values()) {
+         if (task != null && task.isComplete()) {
+            completed.add(task);
+         }
+      }
+      return completed;
    }
 }
+

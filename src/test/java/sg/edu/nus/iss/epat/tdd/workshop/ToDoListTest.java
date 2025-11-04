@@ -70,10 +70,10 @@ public class ToDoListTest  {
     @Test
     public void testGetCompletedTasks() {
         sg.edu.nus.iss.epat.tdd.workshop.ToDoList list = new sg.edu.nus.iss.epat.tdd.workshop.ToDoList();
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("a"));
+        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("a", true));
         list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("b", true));
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("c"));
-        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("d", true));
+        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("c", false));
+        list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("d", false));
         // Also mark one via completeTask
         list.addTask(new sg.edu.nus.iss.epat.tdd.workshop.Task("e"));
         list.completeTask("e");
@@ -89,9 +89,9 @@ public class ToDoListTest  {
             org.junit.Assert.assertTrue("Each returned task should be marked complete", task.isComplete());
         }
 
-        org.junit.Assert.assertEquals("Should have 3 completed tasks (b, d, e)", 3, compCount);
+        org.junit.Assert.assertEquals("Should have 3 completed tasks (a, b, e)", 3, compCount);
+        org.junit.Assert.assertTrue("Should contain b", compDescs.contains("a"));
         org.junit.Assert.assertTrue("Should contain b", compDescs.contains("b"));
-        org.junit.Assert.assertTrue("Should contain d", compDescs.contains("d"));
         org.junit.Assert.assertTrue("Should contain e", compDescs.contains("e"));
     }
 }
